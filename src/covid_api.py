@@ -62,7 +62,12 @@ def get_status():
     print("Elige uno de los siguientes estados posibles para consultar")
     for i, s in enumerate(status_options, 1):
         print(f"{i}. {s}")
-    return status_options[int(input()) - 1]
+    status = input("Escribe un número de los disponibles: ")
+    while not (status.isnumeric() and 1 <= int(status) <= len(status_options)):
+        print("Opción incorrecta")
+        status = input("Escribe un número de los disponibles: ")
+    print(status_options[int(status) - 1])
+    return status_options[int(status) - 1]
 
 
 def get_date():
