@@ -28,4 +28,4 @@ class DataBase:
         self.save_users()
 
 
-users_db = DataBase("src/data/usuarios.txt")
+users_db = DataBase("data/usuarios.txt")

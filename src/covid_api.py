@@ -13,7 +13,7 @@ def save():
     registers = requests.get(
         f"https://api.covid19api.com/country/{country}/status/{status}?from=2020-03-01T00:00:00Z&to={date.isoformat()}"
     ).json()
-    filename = f"src/data/{country}/{date.date()}.csv"
+    filename = f"data/{country}/{date.date()}.csv"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     pd.DataFrame(registers).to_csv(filename, index=False)
     print("La carpeta del país con el registro se encuentra en la carpeta 'data'\nArchivo creado: " + filename)
