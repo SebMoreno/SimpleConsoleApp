@@ -1,10 +1,16 @@
+from covid_api import get_country
+
+
 def per_capita():
-    pass
+    countries = get_country(multi=True)
+    print(countries)
 
 
 def life_expect():
-    pass
+    countries = get_country(multi=True)
+    print(countries)
 
 
 def co2_emissions():
-    pass
+    countries = get_country(multi=True)
+    print(countries)

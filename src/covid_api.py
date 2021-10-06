@@ -13,7 +13,7 @@ def save():
     registers = requests.get(
         f"https://api.covid19api.com/country/{country}/status/{status}?from=2020-03-01T00:00:00Z&to={date.isoformat()}"
     ).json()
-    filename = f"data/{country}/{date.date()}.csv"
+    filename = f"src/data/{country}/{date.date()}.csv"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     pd.DataFrame(registers).to_csv(filename, index=False)
     print("La carpeta del país con el registro se encuentra en la carpeta 'data'\nArchivo creado: " + filename)
@@ -33,16 +33,28 @@ Día de mayor mortandad: {datetime.fromisoformat(df[df["Deaths"] == df["Deaths"]
           .strftime("%d de %B de %Y")}""")
 
 
-def get_country():
+def get_country(multi=False):
+    if multi:
+        count = input("¿Cuántos países desea ingresar? (máximo 5): ")
+        while not (count.isnumeric() and 1 <= int(count) <= 5):
+            print("Ingresa un número entre 1 y 5")
+            count = input("¿Cuántos países desea ingresar? (máximo 5): ")
+    else:
+        count = 1
+    count = int(count)
     countries = sorted(requests.get("https://api.covid19api.com/countries").json(), key=lambda co: co["Country"])
     print("=================================")
     for i, c in enumerate(countries, 1):
         print(f"{i}. {c['Country']}")
     print("=================================")
-    country = input("\nDe la lista anterior ingresa el país que deseas: ")
-    while not (country.isnumeric() and 1 <= int(country) <= len(countries)):
-        country = input("Ingresa un número válido de la lista de países: ")
-    return countries[int(country) - 1]["Slug"]
+    country_selection = []
+    for _ in range(count):
+        country = input("Ingresa el número de un país de la lista anterior: ")
+        while not (country.isnumeric() and 1 <= int(country) <= len(countries)):
+            country = input("Ingresa un número válido de la lista de países: ")
+        country_selection.append(int(country) - 1)
+    country_selection = list(map(lambda co: countries[co]["Slug"], country_selection))
+    return country_selection if multi else country_selection[0]
 
 
 def get_status():
