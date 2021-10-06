@@ -4,3 +4,15 @@
  "password": "root",
  "role": "admin"
 };
+{
+ "id": "3",
+ "email": "a@a.com",
+ "password": "asdffd123.",
+ "role": "admin"
+};
+{
+ "id": "4",
+ "email": "test@test.com",
+ "password": "asdffd123.",
+ "role": "user"
+};

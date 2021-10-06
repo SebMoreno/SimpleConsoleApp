@@ -9,7 +9,10 @@ class Menu:
         self.exit_code = exit_code
 
     def call_fun(self, option):
-        self.functions[option]()
+        if option in self.functions:
+            self.functions[option]()
+        else:
+            print("Ingresa solo una de las opciones indicadas")
 
 
 def start(menu):
@@ -27,22 +30,30 @@ A continuación inicia sesión con tu usuario
 """
 if __name__ == "__main__":
     user = login.login(welcome)
-    user_to_edit = None if user["role"] == "admin" else user
 
-    edit_user_menu = Menu("""
+    user_edit_self_menu = Menu("""
+    a. Email
+    b. Password
+    c. Regresar
+    """, {
+        "a": lambda: config.edit("email", user),
+        "b": lambda: config.edit("password", user)
+    }, "c")
+
+    admin_edit_user_menu = Menu("""
     a. Email
     b. Password
     c. Role
     d. Regresar""", {
-        "a": lambda: config.edit("email", user_to_edit),
-        "b": lambda: config.edit("password", user_to_edit),
-        "c": lambda: config.edit("role", user_to_edit)
+        "a": lambda: config.edit("email"),
+        "b": lambda: config.edit("password"),
+        "c": lambda: config.edit("role")
     }, "d")
 
     user_config_menu = Menu("""
     a. Editar datos propios
     b. Regresar""", {
-        "a": lambda: config.edit("email")
+        "a": lambda: start(user_edit_self_menu)
     }, "b")
 
     admin_config_menu = Menu("""
@@ -51,7 +62,7 @@ if __name__ == "__main__":
     c. Eliminar usuarios
     d. Regresar""", {
         "a": config.add,
-        "b": start(edit_user_menu),
+        "b": lambda: start(admin_edit_user_menu),
         "c": config.delete
     }, "d")
 

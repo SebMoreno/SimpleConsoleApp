@@ -1,6 +1,6 @@
 import re
 
-from db import users_db
+from src.db import users_db
 
 
 def add():
@@ -15,6 +15,7 @@ def edit(field, user=None):
         user = get_user("Ingresa el email del usuario que deseas editar: ")
     user[field] = user_functions[field]()
     users_db.save_users()
+    print("Cambio realizado con éxito")
 
 
 def delete():
@@ -33,7 +34,12 @@ def get_user(input_message):
 
 
 def get_id():
-    return str(len(users_db.users) + 1)
+    next_id = len(users_db.users) + 1
+    exist = next((u for u in users_db.users if u["id"] == str(next_id)), None)
+    while exist:
+        next_id += 1
+        exist = next((u for u in users_db.users if u["id"] == str(next_id)), None)
+    return str(next_id)
 
 
 def get_email():
