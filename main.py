@@ -1,3 +1,5 @@
+import locale
+
 from src import covid_api, game, config, login, graphics
 from src.db import users_db
 
@@ -23,6 +25,8 @@ def start(menu):
         print(menu.description)
         option = input()
 
+
+locale.setlocale(locale.LC_TIME, '')
 
 welcome = """
 ============Bienvenido a SimpleConsoleApp============
