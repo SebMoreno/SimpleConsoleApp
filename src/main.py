@@ -1,7 +1,11 @@
 import locale
 
-from src import covid_api, game, config, login, graphics
-from src.db import users_db
+import config
+import covid_api
+import game
+import graphics
+import login
+from db import users_db
 
 
 class Menu:

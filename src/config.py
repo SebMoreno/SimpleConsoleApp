@@ -1,6 +1,6 @@
 import re
 
-from src.db import users_db
+from db import users_db
 
 
 def add():
