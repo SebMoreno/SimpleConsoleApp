@@ -1,7 +1,7 @@
 import json
 
 
-class DataBase:
+class UsersDataBase:
     users = []
 
     def __init__(self, file_path):
@@ -28,4 +28,4 @@ class DataBase:
         self.save_users()
 
 
-users_db = DataBase("data/usuarios.txt")
+users_db = UsersDataBase("data/usuarios.txt")

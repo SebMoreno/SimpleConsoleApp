@@ -99,7 +99,7 @@ if __name__ == "__main__":
         "1": lambda: start(config_menu),
         "2": lambda: start(graphics_menu),
         "3": lambda: start(covid_api_menu),
-        "4": game.play,
+        "4": lambda: game.play(user["email"]),
     }, "5")
 
     start(main_menu)

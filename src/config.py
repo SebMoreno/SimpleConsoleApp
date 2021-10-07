@@ -44,7 +44,7 @@ def get_id():
 
 def get_email():
     email = input("El email debe contener un @ y terminar en '.com' o '.co'\nIngrésalo a continuación: ")
-    while not email_re.match(email):
+    while not email_re.match(email) and "," in email:
         print("Formato incorrecto")
         email = input("El email debe contener un @ y terminar en '.com' o '.co'\nIngrésalo a continuación: ")
     while next((i for i in users_db.users if i["email"] == email), None):
